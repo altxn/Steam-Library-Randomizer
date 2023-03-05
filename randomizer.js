@@ -1,6 +1,6 @@
 const axios = require('axios');
-const API_KEY = 'your-api-key';
-const STEAM_ID = 'your-steam-id';
+const API_KEY = '';
+const STEAM_ID = '';
 
 function minToHours(minutes) {
     const hours = Math.floor(minutes / 60);
@@ -10,11 +10,11 @@ function minToHours(minutes) {
 
 axios({
     method: 'GET',
-    url: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + API_KEY + '&steamid=' + STEAM_ID + '&format=json'
+    url: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + API_KEY + '&steamid=' + STEAM_ID + '&format=json&include_appinfo=1'
 })
     .then(function (response) {
         const games = response.data.response.games;
-        const gameData = games.map(game => ({ name: game.name, playtime_forever: game.playtime_forever }));
+        const gameData = games.map(games => ({ name: games.name, playtime_forever: games.playtime_forever }));
         const randomIndex = Math.floor(Math.random() * gameData.length);
         const randomGame = gameData[randomIndex];
         const name = randomGame.name;
